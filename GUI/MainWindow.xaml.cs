@@ -48,6 +48,7 @@ namespace GUI
         private FrameworkElement createTranslationContainer(Translation translation)
         {
             TranslationChoice translationChoice = new(translation);
+            const double marginSize = 3;
 
             Grid grid = new Grid();
 
@@ -109,7 +110,8 @@ namespace GUI
             {
                 separator = new()
                 {
-                    LayoutTransform = new RotateTransform(90)
+                    LayoutTransform = new RotateTransform(90),
+                    Margin = new Thickness(0, marginSize, 0, 0)
                 };
                 Grid.SetColumn(separator, 1);
                 Grid.SetRow(separator, 1);
@@ -144,7 +146,7 @@ namespace GUI
                     TextAlignment = TextAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Margin = new Thickness(3)
+                    Margin = new Thickness(marginSize)
                 };
                 Grid.SetColumn(groupTextBlock, 0);
                 Grid.SetRow(groupTextBlock, currentRowIndex);
