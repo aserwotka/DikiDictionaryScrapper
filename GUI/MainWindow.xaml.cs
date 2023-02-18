@@ -403,6 +403,7 @@ namespace GUI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5)
             };
+            textBlock.Inlines.Add($"Autor: Andrzej Serwotka\n\n");
             textBlock.Inlines.Add($"Data kompilacji: {SDK.AssemblyInfo.GetLinkerTime(Assembly.GetEntryAssembly())}\n\n");
             textBlock.Inlines.Add("Aplikacja do tłumaczenia wykorzystuje internetowy słownik Diki:\n\n");
             textBlock.Inlines.Add(createHyperlink("https://www.diki.pl/dictionary/about", "Diki\n\n"));
