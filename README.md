@@ -8,7 +8,7 @@ The application is not related in any business way with Diki and does not use an
 
 You can manually build application using Visual Studio (tested on Visual Studio 2022 Community Edition).
 
-Alternatively, you can download prebuild package from [here](https://drive.google.com/drive/folders/1lMqJ5-YHXZmu2HbjJW9gdrGmFhyxEwPm?usp=sharing).
+Alternatively, you can download prebuild package from [here](https://github.com/aserwotka/DikiDictionaryScrapper/releases).
 
 ## Usage
 
