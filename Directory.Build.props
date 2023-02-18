@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
 	 <SourceRevisionId>build$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))</SourceRevisionId>
+	  <AssemblyVersion>0.1.0.0</AssemblyVersion>
   </PropertyGroup>
 </Project>
