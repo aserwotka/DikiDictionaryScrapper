@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\german_128px.png" />
+    <None Remove="Resources\info_128px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SDK\SDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\german_128px.png" />
+    <Resource Include="Resources\info_128px.png" />
+  </ItemGroup>
+
+</Project>
