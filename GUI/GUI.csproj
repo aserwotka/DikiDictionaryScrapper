@@ -5,11 +5,16 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\german_256px.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Resources\german_128px.png" />
     <None Remove="Resources\info_128px.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\german_256px.ico" />
   </ItemGroup>
 
   <ItemGroup>
