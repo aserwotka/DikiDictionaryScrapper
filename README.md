@@ -12,7 +12,7 @@ To be added.
 
 ## Download
 
-No installation is required, because this is single file application. You only need executable file. You can download prebuild package from [here](https://github.com/aserwotka/DikiDictionaryScrapper/releases) (choose latest version, expand "Assets" and select *.exe file). No installation is required.
+You can download prebuild executable file from [here](https://github.com/aserwotka/DikiDictionaryScrapper/releases) (choose latest version, expand "Assets" and select *.exe file). No installation is required, because this is single file application.
 
 ## Usage
 
