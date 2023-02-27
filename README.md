@@ -16,7 +16,7 @@ Alternatively, you can download prebuild package from [here](https://github.com/
 
 ![image](https://user-images.githubusercontent.com/46385899/221669766-1fcd55fa-c8b6-4fca-95da-566b993e6541.png)
 1. Input column. Insert here terms you want to translate in either polish or german language. You can mix them. Each terms should start with a new line. Spaces at the beginning and at the end of lines will be trimmed.
-2. Translation column. Here will appear translations. Select the one you are looking for for each phrase. If not found, it will display empty row for phrase.
+2. Translation column. Here will appear translations. Select the one you are looking for each phrase. If not found, it will display empty row for phrase.
 3. Output column. It will display spread sheet (for example excel or google sheets) friendly format. You can also use it in flashcards application like Quizlet.
 4. Special characters buttons for input column.
 5. Download button. Downloads dictionary translations. Downloading is sequentional, so the more input phrases, the longer it will take.
