@@ -10,17 +10,17 @@ You can manually build and run the application using Visual Studio (tested on Vi
 Alternatively, you can prepare standalone executable file by following those steps:
 1. Clone the repository into some `<path>` directory.
 2. Run powershell. 
-   ![image](https://user-images.githubusercontent.com/46385899/230741209-cdf3ef4a-4051-439e-bc89-97b2450f1773.png)
+![image](https://user-images.githubusercontent.com/46385899/230741209-cdf3ef4a-4051-439e-bc89-97b2450f1773.png)
    
-2. Enter GUI project directory in the solution.
+3. Enter GUI project directory in the solution.
    ```
    cd <path>\DikiDictionaryScrapper\GUI\ 
    ```
-3. Run the following command.
+4. Run the following command.
    ```
    dotnet publish -r win-x64 -p:PublishSingleFile=true --self-contained true -p:IncludeAllContentForSelfExtract=true -c Release -o publish
    ```
-4. If the operation is successful, the file named GUI.exe should be found in `<path>\DikiDictionaryScrapper\GUI\publish\`.
+5. If the operation is successful, the file named GUI.exe should be found in `<path>\DikiDictionaryScrapper\GUI\publish\`.
 
 ## Download
 
