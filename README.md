@@ -10,8 +10,8 @@ You can manually build and run the application using Visual Studio (tested on Vi
 Alternatively, you can prepare standalone executable file by following those steps:
 1. Clone the repository into some `<path>` directory.
 2. Run powershell. 
-![image](https://user-images.githubusercontent.com/46385899/230741209-cdf3ef4a-4051-439e-bc89-97b2450f1773.png)
 
+    ![image](https://user-images.githubusercontent.com/46385899/230741209-cdf3ef4a-4051-439e-bc89-97b2450f1773.png)
 
 3. Enter GUI project directory in the solution.
    ```
