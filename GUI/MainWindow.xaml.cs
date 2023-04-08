@@ -44,6 +44,7 @@ namespace GUI
         private List<TranslationChoice> translationChoices = new();
         private DependencyProperty IsIdleProperty = DependencyProperty.Register(nameof(IsIdle), typeof(bool), typeof(MainWindow));
         private bool IsIdle { get { return (bool)GetValue(IsIdleProperty); } set { SetValue(IsIdleProperty, value); } }
+        private readonly DikiAccessor dikiAccessor = new();
 
         private FrameworkElement createTranslationContainer(Translation translation)
         {
@@ -238,8 +239,6 @@ namespace GUI
             textBlockStatus.Text = "Tłumaczenie...";
             buttonGetTranslations.Content = "Anuluj";
 
-            var diki = new DikiAccessor();
-
             var input = textBoxInput.Text;
             var phrases = input.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
 
@@ -253,7 +252,7 @@ namespace GUI
             buttonGetTranslations.Click -= clickGetTranslationButton;
             buttonGetTranslations.Click += (object sender, RoutedEventArgs e) => { cancellationTokenSource.Cancel(); };
 
-            var translationTask = diki.Request(phrases, progress, cancellationTokenSource.Token);
+            var translationTask = dikiAccessor.Request(phrases, progress, cancellationTokenSource.Token);
             translationTask.ContinueWith(task =>
             {
                 StackPanel stackPanel = new();

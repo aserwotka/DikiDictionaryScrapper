@@ -44,6 +44,8 @@ namespace SDK
 
     public class DikiAccessor
     {
+        private List<Translation> cache = new();
+
         public async Task<List<Translation>> Request(List<string> phrases, IProgress<int> progress, CancellationToken cancellationToken)
         {
             List<Translation> results = new();
@@ -51,12 +53,23 @@ namespace SDK
             int progressCount = 0;
             foreach (var phrase in phrases)
             {
+                var cacheIndex = cache.FindIndex(item => item.SearchedPhrase == phrase);
+
+                if (cacheIndex >= 0)
+                {
+                    results.Add(cache[cacheIndex]);
+                    progress.Report(++progressCount);
+                    continue;
+                }
+
                 if (cancellationToken.IsCancellationRequested)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                 }
 
-                results.Add(await Request(phrase));
+                var translation = await Request(phrase);
+                results.Add(translation);
+                cache.Add(translation);
                 progress.Report(++progressCount);
             }
 
