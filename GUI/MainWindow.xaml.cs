@@ -281,6 +281,12 @@ namespace GUI
                 }
 
                 scrollViewer.Content = stackPanel;
+
+                if (checkBoxEnableScrolling.IsChecked ?? false)
+                {
+                    scrollViewer.ScrollToEnd();
+                }
+
                 buttonGetTranslations.Content = "Pobierz";
                 buttonGetTranslations.Click += clickGetTranslationButton;
                 IsIdle = true;
