@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static GUI.TranslationChoice;
 using static SDK.Translation.TranslationGroup;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GUI
 {
@@ -233,14 +235,21 @@ namespace GUI
             return border;
         }
 
+        private string clearEmptyLines(string str)
+        {
+            return Regex.Replace(str, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+        }
+
         private void clickGetTranslationButton(object sender, RoutedEventArgs e)
         {
             IsIdle = false;
             textBlockStatus.Text = "Tłumaczenie...";
             buttonGetTranslations.Content = "Anuluj";
 
+            textBoxInput.Text = clearEmptyLines(textBoxInput.Text);
+
             var input = textBoxInput.Text;
-            var phrases = input.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+            var phrases = input.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             translationChoices.Clear();
 
