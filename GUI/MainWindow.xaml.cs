@@ -282,11 +282,31 @@ namespace GUI
                     textBlockStatus.Text = "Gotowe";
 
                     var results = task.Result;
+                    var rejestedPhrases = new List<string>();
+
                     foreach (var result in results)
                     {
+                        if (result.Groups.Count == 0)
+                        {
+                            var index = phrases.IndexOf(result.SearchedPhrase);
+                            if (index >= 0)
+                            {
+                                phrases.RemoveAt(index);
+                            }
+
+                            rejestedPhrases.Add(result.SearchedPhrase);
+                            continue;
+                        }
+
                         var translationContainer = createTranslationContainer(result);
                         stackPanel.Children.Add(translationContainer);
                     }
+
+                    textBoxInput.Text = string.Join(Environment.NewLine, phrases);
+
+                    var currentRejectedPhrases = textBoxRejected.Text.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    currentRejectedPhrases = currentRejectedPhrases.Concat(rejestedPhrases).Distinct().ToList();
+                    textBoxRejected.Text = string.Join(Environment.NewLine, currentRejectedPhrases);
                 }
 
                 scrollViewer.Content = stackPanel;
@@ -423,8 +443,8 @@ namespace GUI
             textBlock.Inlines.Add(createHyperlink("https://www.diki.pl/dictionary/about", "Diki\n\n"));
             textBlock.Inlines.Add("Aplikacja nie jest w żaden sposób biznesowo powiązana z Diki ani nie korzysta z jego API, lecz używa metody scrappingu z publicznie dostępnego kodu HTML.\n\n");
             textBlock.Inlines.Add("Zewnętrzne materiały wykorzystane w aplikacji:\n\n");
-            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icons/german-flag", "German flag icons created by rizal2109 - Flaticon (Flaticon license).\n"));
-            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icons/info", "Info icons created by Freepik - Flaticon (Flaticon license).\n\n"));
+            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icon/german-flag_8617292", "German flag icons created by rizal2109 - Flaticon (Flaticon license).\n"));
+            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icon/info_1041728", "Info icons created by Freepik - Flaticon (Flaticon license).\n\n"));
             textBlock.Inlines.Add("Wszelkie uwagi i błędy proszę zgłaszać na stronie repozytorium:\n\n");
             textBlock.Inlines.Add(createHyperlink("https://github.com/aserwotka/DikiDictionaryScrapper", "@DikiDictionaryScrapper"));
 
@@ -452,6 +472,16 @@ namespace GUI
 
         public MainWindow()
         {
+            UpdateChecker updateChecker = new UpdateChecker();
+            var task = updateChecker.CheckNewVersionAvailable();
+
+            task.ContinueWith(t => { 
+                if(task.IsCompleted)
+                {
+                    Trace.WriteLine("Is there a new version: " + t.Result);
+                }
+            });
+
             InitializeComponent();
             IsIdle = true;
         }

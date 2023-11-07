@@ -127,6 +127,11 @@
                     Grid.Column="22"
                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
                     Grid.ColumnSpan="4">Formatuj</Button>
+            <TextBlock Name="textBlockUpdate"
+                       Grid.Column="28"
+                       Grid.ColumnSpan="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">TMP</TextBlock>
             <local:InfoButton x:Name="buttonInfo"
                               Click="clickInfoButton"
                               IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
@@ -135,15 +140,35 @@
                               VerticalAlignment="Stretch"
                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></local:InfoButton>
         </Grid>
-        <TextBox Name="textBoxInput"
-                 IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
-                 Grid.Column="0"
-                 Grid.Row="1"
-                 TextWrapping="NoWrap"
-                 VerticalScrollBarVisibility="Visible"
-                 HorizontalScrollBarVisibility="Visible"
-                 AcceptsReturn="True">
-        </TextBox>
+        <Grid Grid.Column="0"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="textBoxInput"
+                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Grid.RowSpan="2"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible"
+                     AcceptsReturn="True">
+            </TextBox>
+            <TextBox Name="textBoxRejected"
+                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
+                     Grid.Column="0"
+                     Grid.Row="2"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible"
+                     AcceptsReturn="True"></TextBox>
+        </Grid>
         <ScrollViewer Name="scrollViewer"
                       IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
                       HorizontalScrollBarVisibility="Visible"
