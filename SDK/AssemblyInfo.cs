@@ -2,6 +2,8 @@
 using System.Globalization;
 using System.Reflection;
 
+[assembly: AssemblyVersion("0.3")]
+
 namespace SDK
 {
     public class AssemblyInfo

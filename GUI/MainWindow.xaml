@@ -43,10 +43,28 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Horizontal"
                         Grid.Column="0"
-                        Grid.ColumnSpan="4">
+                        Grid.ColumnSpan="5">
                 <StackPanel.Resources>
                     <Style TargetType="{x:Type Button}">
                         <Setter Property="Margin"
@@ -70,12 +88,26 @@
                         Width="{Binding ActualHeight, ElementName=buttonSharpS, Mode=OneWay}"
                         Click="clickButtonSharpS">ß</Button>
             </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="5"
+                        Grid.ColumnSpan="5">
+                <CheckBox Name="checkBoxEnableScrolling"
+                          IsChecked="True"
+                          VerticalContentAlignment="Center"
+                          HorizontalAlignment="Center"
+                          Width="150">
+                    <ContentControl>
+                        <TextBlock TextWrapping="Wrap"
+                                   TextAlignment="Center">Przewijanie przy tłumaczeniu</TextBlock>
+                    </ContentControl>
+                </CheckBox>
+            </StackPanel>
             <Button Name="buttonGetTranslations"
                     Click="clickGetTranslationButton"
-                    Grid.Column="5"
-                    Grid.ColumnSpan="2">Pobierz</Button>
-            <Grid Grid.Column="7"
-                  Grid.ColumnSpan="4">
+                    Grid.Column="10"
+                    Grid.ColumnSpan="4">Pobierz</Button>
+            <Grid Grid.Column="14"
+                  Grid.ColumnSpan="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
@@ -92,26 +124,51 @@
             </Grid>
             <Button Name="buttonFormatTranslations"
                     Click="clickFormatTranslationsButton"
-                    Grid.Column="11"
+                    Grid.Column="22"
                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
-                    Grid.ColumnSpan="2">Formatuj</Button>
+                    Grid.ColumnSpan="4">Formatuj</Button>
+            <TextBlock Name="textBlockUpdate"
+                       Grid.Column="28"
+                       Grid.ColumnSpan="5"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"></TextBlock>
             <local:InfoButton x:Name="buttonInfo"
                               Click="clickInfoButton"
                               IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
                               HorizontalAlignment="Right"
-                              Grid.Column="17"
+                              Grid.Column="35"
                               VerticalAlignment="Stretch"
                               Width="{Binding RelativeSource={RelativeSource Self}, Path=ActualHeight}"></local:InfoButton>
         </Grid>
-        <TextBox Name="textBoxInput"
-                 IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
-                 Grid.Column="0"
-                 Grid.Row="1"
-                 TextWrapping="NoWrap"
-                 VerticalScrollBarVisibility="Visible"
-                 HorizontalScrollBarVisibility="Visible"
-                 AcceptsReturn="True">
-        </TextBox>
+        <Grid Grid.Column="0"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Name="textBoxInput"
+                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
+                     Grid.Column="0"
+                     Grid.Row="0"
+                     Grid.RowSpan="2"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible"
+                     AcceptsReturn="True">
+            </TextBox>
+            <TextBox Name="textBoxRejected"
+                     IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
+                     Grid.Column="0"
+                     Grid.Row="2"
+                     TextWrapping="NoWrap"
+                     VerticalScrollBarVisibility="Visible"
+                     HorizontalScrollBarVisibility="Visible"
+                     AcceptsReturn="True"></TextBox>
+        </Grid>
         <ScrollViewer Name="scrollViewer"
                       IsEnabled="{Binding ElementName=window, Path=IsIdle, Mode=OneWay}"
                       HorizontalScrollBarVisibility="Visible"

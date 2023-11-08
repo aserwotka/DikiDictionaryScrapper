@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -233,14 +234,21 @@ namespace GUI
             return border;
         }
 
+        private string clearEmptyLines(string str)
+        {
+            return Regex.Replace(str, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+        }
+
         private void clickGetTranslationButton(object sender, RoutedEventArgs e)
         {
             IsIdle = false;
             textBlockStatus.Text = "Tłumaczenie...";
             buttonGetTranslations.Content = "Anuluj";
 
+            textBoxInput.Text = clearEmptyLines(textBoxInput.Text);
+
             var input = textBoxInput.Text;
-            var phrases = input.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
+            var phrases = input.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
 
             translationChoices.Clear();
 
@@ -273,14 +281,40 @@ namespace GUI
                     textBlockStatus.Text = "Gotowe";
 
                     var results = task.Result;
+                    var rejestedPhrases = new List<string>();
+
                     foreach (var result in results)
                     {
+                        if (result.Groups.Count == 0)
+                        {
+                            var index = phrases.IndexOf(result.SearchedPhrase);
+                            if (index >= 0)
+                            {
+                                phrases.RemoveAt(index);
+                            }
+
+                            rejestedPhrases.Add(result.SearchedPhrase);
+                            continue;
+                        }
+
                         var translationContainer = createTranslationContainer(result);
                         stackPanel.Children.Add(translationContainer);
                     }
+
+                    textBoxInput.Text = string.Join(Environment.NewLine, phrases);
+
+                    var currentRejectedPhrases = textBoxRejected.Text.Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+                    currentRejectedPhrases = currentRejectedPhrases.Concat(rejestedPhrases).Distinct().ToList();
+                    textBoxRejected.Text = string.Join(Environment.NewLine, currentRejectedPhrases);
                 }
 
                 scrollViewer.Content = stackPanel;
+
+                if (checkBoxEnableScrolling.IsChecked ?? false)
+                {
+                    scrollViewer.ScrollToEnd();
+                }
+
                 buttonGetTranslations.Content = "Pobierz";
                 buttonGetTranslations.Click += clickGetTranslationButton;
                 IsIdle = true;
@@ -402,14 +436,15 @@ namespace GUI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5)
             };
+            textBlock.Inlines.Add($"Wersja: {UpdateChecker.GetCurrentVersion().ToString()}\n\n");
             textBlock.Inlines.Add($"Autor: Andrzej Serwotka\n\n");
             textBlock.Inlines.Add($"Data kompilacji: {SDK.AssemblyInfo.GetLinkerTime(Assembly.GetEntryAssembly())}\n\n");
             textBlock.Inlines.Add("Aplikacja do tłumaczenia wykorzystuje internetowy słownik Diki:\n\n");
             textBlock.Inlines.Add(createHyperlink("https://www.diki.pl/dictionary/about", "Diki\n\n"));
             textBlock.Inlines.Add("Aplikacja nie jest w żaden sposób biznesowo powiązana z Diki ani nie korzysta z jego API, lecz używa metody scrappingu z publicznie dostępnego kodu HTML.\n\n");
             textBlock.Inlines.Add("Zewnętrzne materiały wykorzystane w aplikacji:\n\n");
-            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icons/german-flag", "German flag icons created by rizal2109 - Flaticon (Flaticon license).\n"));
-            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icons/info", "Info icons created by Freepik - Flaticon (Flaticon license).\n\n"));
+            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icon/german-flag_8617292", "German flag icons created by rizal2109 - Flaticon (Flaticon license).\n"));
+            textBlock.Inlines.Add(createHyperlink("https://www.flaticon.com/free-icon/info_1041728", "Info icons created by Freepik - Flaticon (Flaticon license).\n\n"));
             textBlock.Inlines.Add("Wszelkie uwagi i błędy proszę zgłaszać na stronie repozytorium:\n\n");
             textBlock.Inlines.Add(createHyperlink("https://github.com/aserwotka/DikiDictionaryScrapper", "@DikiDictionaryScrapper"));
 
@@ -435,10 +470,33 @@ namespace GUI
             window.ShowDialog();
         }
 
+        private void CheckUpdateFinished(Task<bool> task)
+        {
+            textBlockUpdate.Inlines.Clear();
+
+            if (task.IsFaulted)
+            {
+                textBlockUpdate.Inlines.Add("Błąd sprawdzania aktualizacji.");
+            }
+            else if (task.IsCompleted && task.Result == true)
+            {
+                textBlockUpdate.Inlines.Add(createHyperlink(UpdateChecker.GetUrl(), "Dostępna jest nowsza wersja!"));
+            }
+            else if (task.IsCompleted && task.Result == false)
+            {
+                textBlockUpdate.Inlines.Add("Wersja jest aktualna.");
+            }
+        }
+
         public MainWindow()
         {
+            UpdateChecker updateChecker = new UpdateChecker();
+            var task = updateChecker.CheckNewVersionAvailable();
+
             InitializeComponent();
             IsIdle = true;
+
+            task.ContinueWith(CheckUpdateFinished, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }

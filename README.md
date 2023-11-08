@@ -4,6 +4,10 @@ Diki Dictionary Scrapper is an application for getting polish-german entries fro
 
 The application is not related in any business way with Diki and does not use any api. It uses web scrapping technique to extract translations from publicly available HTML code.
 
+## Download
+
+You can download prebuild executable file from [here](https://github.com/aserwotka/DikiDictionaryScrapper/releases) (choose latest version, expand "Assets" and select *.exe file). No installation is required, because this is single file application.
+
 ## Build
 
 You can manually build and run the application using Visual Studio (tested on Visual Studio 2022 Community Edition).
@@ -22,10 +26,6 @@ Alternatively, you can prepare standalone executable file by following those ste
    dotnet publish -r win-x64 -p:PublishSingleFile=true --self-contained true -p:IncludeAllContentForSelfExtract=true -c Release -o publish
    ```
 5. If the operation is successful, the file named GUI.exe should be found in `<path>\DikiDictionaryScrapper\GUI\publish\`.
-
-## Download
-
-You can download prebuild executable file from [here](https://github.com/aserwotka/DikiDictionaryScrapper/releases) (choose latest version, expand "Assets" and select *.exe file). No installation is required, because this is single file application.
 
 ## Usage
 
