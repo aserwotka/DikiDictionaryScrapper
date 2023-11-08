@@ -28,16 +28,18 @@ Alternatively, you can prepare standalone executable file by following those ste
 5. If the operation is successful, the file named GUI.exe should be found in `<path>\DikiDictionaryScrapper\GUI\publish\`.
 
 ## Usage
-
-![image](https://user-images.githubusercontent.com/46385899/221669766-1fcd55fa-c8b6-4fca-95da-566b993e6541.png)
-1. Input column. Insert here terms you want to translate in either polish or german language. You can mix them. Each terms should start with a new line. Spaces at the beginning and at the end of lines will be trimmed.
-2. Translation column. Here will appear translations. Select the one you are looking for each phrase. If not found, it will display empty row for phrase.
-3. Output column. It will display spread sheet (for example excel or google sheets) friendly format. You can also use it in flashcards application like Quizlet.
-4. Special characters buttons for input column.
-5. Download button. Downloads dictionary translations. Downloading is sequentional, so the more input phrases, the longer it will take.
-6. Progress bar and status bar.
-7. Format button. Formats selected translations from translation column into output column.
-8. About button.
+![manual](https://github.com/aserwotka/DikiDictionaryScrapper/assets/46385899/9d41f207-2afc-4833-890f-d37715e40316)
+1. Special characters buttons for input column.
+2. Scrolling check box. Enables translation column scrolling to the bottom after tranlation.
+3. Download button. Downloads dictionary translations. Downloading is sequentional, so the more input phrases, the longer it will take.
+4. Progress bar and status info.
+5. Format button. Formats selected translations from translation column into output column.
+6. Version info.
+7. About button.
+8. Input column. Insert here terms you want to translate in either polish or german language. You can mix them. Each terms should start with a new line. Spaces at the beginning and at the end of lines will be trimmed.
+9. Rejected phrases column. Here will go phrases for which no translation was found.
+10. Translation column. Here will appear translations. Select the one you are looking for each phrase. If not found, it will display empty row for phrase.
+11. Output column. It will display spread sheet (for example excel or google sheets) friendly format. You can also use it in flashcards application like Quizlet.
 
 ## Credits
 - [Info icons](https://www.flaticon.com/free-icons/info) created by Freepik - Flaticon.
