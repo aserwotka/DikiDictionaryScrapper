@@ -1,14 +1,11 @@
 ﻿using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace SDK
 {
@@ -19,13 +16,17 @@ namespace SDK
             return Assembly.GetExecutingAssembly().GetName().Version;
         }
 
+        public static string GetUrl()
+        {
+            return "https://github.com/aserwotka/DikiDictionaryScrapper/releases";
+        }
+
         public async Task<bool> CheckNewVersionAvailable()
         {
-            string url = "https://github.com/aserwotka/DikiDictionaryScrapper/releases";
             HttpClient client = new HttpClient();
             List<Version> versions;
 
-            using (HttpResponseMessage response = await client.GetAsync(url))
+            using (HttpResponseMessage response = await client.GetAsync(GetUrl()))
             {
                 using (HttpContent content = response.Content)
                 {
@@ -43,9 +44,6 @@ namespace SDK
             {
                 return false;
             }
-
-            Trace.WriteLine("Current version: " + currentVersion);
-            versions.ForEach(version => Trace.WriteLine(currentVersion.CompareTo(version)));
 
             return versions.Any(version => currentVersion.CompareTo(version) < 0);
         }

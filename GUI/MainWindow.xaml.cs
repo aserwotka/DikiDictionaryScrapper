@@ -16,7 +16,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using static GUI.TranslationChoice;
 using static SDK.Translation.TranslationGroup;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GUI
 {
@@ -437,6 +436,7 @@ namespace GUI
                 VerticalAlignment = VerticalAlignment.Center,
                 Margin = new Thickness(5)
             };
+            textBlock.Inlines.Add($"Wersja: {UpdateChecker.GetCurrentVersion().ToString()}\n\n");
             textBlock.Inlines.Add($"Autor: Andrzej Serwotka\n\n");
             textBlock.Inlines.Add($"Data kompilacji: {SDK.AssemblyInfo.GetLinkerTime(Assembly.GetEntryAssembly())}\n\n");
             textBlock.Inlines.Add("Aplikacja do tłumaczenia wykorzystuje internetowy słownik Diki:\n\n");
@@ -470,20 +470,33 @@ namespace GUI
             window.ShowDialog();
         }
 
+        private void CheckUpdateFinished(Task<bool> task)
+        {
+            textBlockUpdate.Inlines.Clear();
+
+            if (task.IsFaulted)
+            {
+                textBlockUpdate.Inlines.Add("Błąd sprawdzania aktualizacji.");
+            }
+            else if (task.IsCompleted && task.Result == true)
+            {
+                textBlockUpdate.Inlines.Add(createHyperlink(UpdateChecker.GetUrl(), "Dostępna jest nowsza wersja!"));
+            }
+            else if (task.IsCompleted && task.Result == false)
+            {
+                textBlockUpdate.Inlines.Add("Wersja jest aktualna.");
+            }
+        }
+
         public MainWindow()
         {
             UpdateChecker updateChecker = new UpdateChecker();
             var task = updateChecker.CheckNewVersionAvailable();
 
-            task.ContinueWith(t => { 
-                if(task.IsCompleted)
-                {
-                    Trace.WriteLine("Is there a new version: " + t.Result);
-                }
-            });
-
             InitializeComponent();
             IsIdle = true;
+
+            task.ContinueWith(CheckUpdateFinished, TaskScheduler.FromCurrentSynchronizationContext());
         }
     }
 }
