@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Reflection;
 
-[assembly: AssemblyVersion("0.3")]
+[assembly: AssemblyVersion("0.4")]
 
 namespace SDK
 {
