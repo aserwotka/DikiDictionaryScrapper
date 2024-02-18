@@ -317,8 +317,29 @@ namespace GUI
 
                 buttonGetTranslations.Content = "Pobierz";
                 buttonGetTranslations.Click += clickGetTranslationButton;
+
                 IsIdle = true;
+
+                prepareTextBoxInput();
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void prepareTextBoxInput()
+        {
+            if (textBoxInput.Text.Length == 0)
+            {
+                textBoxInput.Focus();
+                return;
+            }
+
+            var inputLines = textBoxInput.Text.Split(new string[] { "\n" }, StringSplitOptions.None).ToList();
+            if (inputLines.ElementAt(inputLines.Count - 1) != string.Empty)
+            {
+                textBoxInput.AppendText("\n");
+            }
+
+            textBoxInput.Focus();
+            textBoxInput.CaretIndex = textBoxInput.Text.Length;
         }
 
         private void clickFormatTranslationsButton(object sender, RoutedEventArgs e)
